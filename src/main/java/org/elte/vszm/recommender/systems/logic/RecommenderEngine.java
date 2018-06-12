@@ -20,12 +20,11 @@ import net.librec.conf.Configuration;
 import net.librec.data.DataModel;
 import net.librec.data.model.TextDataModel;
 import net.librec.eval.RecommenderEvaluator;
-import net.librec.eval.rating.RMSEEvaluator;
+import net.librec.eval.rating.MAEEvaluator;
 import net.librec.filter.GenericRecommendedFilter;
 import net.librec.recommender.*;
-import net.librec.recommender.cf.UserKNNRecommender;
+import net.librec.recommender.cf.rating.RBMRecommender;
 import net.librec.recommender.item.RecommendedItem;
-import net.librec.similarity.*;
 
 @Component
 @DependsOn("database")
@@ -50,19 +49,19 @@ public class RecommenderEngine {
 		RecommenderContext context = new RecommenderContext(conf, dataModel);
 
 		// build similarity matrix
-		RecommenderSimilarity similarity = new CosineSimilarity();// TODO: Try different similarities
-		similarity.buildSimilarityMatrix(dataModel);
-		context.setSimilarity(similarity);
+//		RecommenderSimilarity similarity = new CosineSimilarity();// TODO: Try different similarities
+//		similarity.buildSimilarityMatrix(dataModel);
+//		context.setSimilarity(similarity);
 
 		// build recommender
-		recommender = new UserKNNRecommender();
+		recommender = new RBMRecommender();
 		recommender.setContext(context);
 
 		// run recommender algorithm
 		recommender.recommend(context);
 
 		// evaluate the recommended result
-		RecommenderEvaluator evaluator = new RMSEEvaluator();
+		RecommenderEvaluator evaluator = new MAEEvaluator();
 		LOGGER.info("Root mean squared error of the algorithm: |{}|", recommender.evaluate(evaluator));
 
 		LOGGER.info("Listing the top5 results for user number 5");
