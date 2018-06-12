@@ -4,6 +4,8 @@ import lombok.*;
 
 @ToString
 @Getter
+@Setter
+@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 public class Task {
@@ -21,6 +23,8 @@ public class Task {
 	private String fromExternalId;
 	private String toExternalId;
 	private Double rating;
+	private Integer itemCount;
+	private Integer maxResults;
 
 
 }

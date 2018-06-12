@@ -3,13 +3,9 @@ package org.elte.vszm.recommender.systems.communication;
 import lombok.Getter;
 
 @Getter
-public class Emit {
+public class Emit extends Message {
 
-	private final String method;
-	private final EmitTask task;
-
-	public Emit(String responceChannel) {
-		this.method = "emit";
-		this.task = EmitTask.builder().channel(responceChannel).build();
+	public Emit(String channelName, Integer itemCount) {
+		super("emit", Task.builder().channel(channelName).itemCount(itemCount).build());
 	}
 }

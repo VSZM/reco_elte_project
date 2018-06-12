@@ -64,7 +64,7 @@ public class MainLogic extends Logic {
 
 	@Override
 	public void executeBusinessLogic() throws Exception {
-		pullData();
+	//	pullData();
 	}
 
 
