@@ -23,8 +23,9 @@ import net.librec.eval.RecommenderEvaluator;
 import net.librec.eval.rating.MAEEvaluator;
 import net.librec.filter.GenericRecommendedFilter;
 import net.librec.recommender.*;
-import net.librec.recommender.cf.rating.RBMRecommender;
+import net.librec.recommender.cf.UserKNNRecommender;
 import net.librec.recommender.item.RecommendedItem;
+import net.librec.similarity.*;
 
 @Component
 @DependsOn("database")
@@ -49,12 +50,12 @@ public class RecommenderEngine {
 		RecommenderContext context = new RecommenderContext(conf, dataModel);
 
 		// build similarity matrix
-//		RecommenderSimilarity similarity = new CosineSimilarity();// TODO: Try different similarities
-//		similarity.buildSimilarityMatrix(dataModel);
-//		context.setSimilarity(similarity);
+		RecommenderSimilarity similarity = new CosineSimilarity();// TODO: Try different similarities
+		similarity.buildSimilarityMatrix(dataModel);
+		context.setSimilarity(similarity);
 
 		// build recommender
-		recommender = new RBMRecommender();
+		recommender = new UserKNNRecommender();
 		recommender.setContext(context);
 
 		// run recommender algorithm
@@ -66,6 +67,9 @@ public class RecommenderEngine {
 
 		LOGGER.info("Listing the top5 results for user number 5");
 		List<MovieRecommendation> movieRecommendationsForUser5 = getMovieRecommendationsForUser("5", 5);
+		for (MovieRecommendation movieRecommendation : movieRecommendationsForUser5) {
+			LOGGER.info(movieRecommendation);
+		}
 
 
 
