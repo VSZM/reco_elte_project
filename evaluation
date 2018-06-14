@@ -1,3 +1,4 @@
 RBM RECO Root mean squared error of the algorithm: |1.0924689195035096| 20 minutes setup
 KNN5-COSINE RMSE 0.8140138027062153 5 minutes setup
 KNN15-COSINE RMSE 0.7645407077848444 4 minutes setup
+KNN50-COSINE RMSE 0.7428374827484032 4 minutes
